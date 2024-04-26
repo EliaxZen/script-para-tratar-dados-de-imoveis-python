@@ -49,7 +49,7 @@ def extrair_setor(titulo):
     return "OUTRO"  # Retorna "OUTRO" se o valor não for uma string
 
 
-df["Setor"] = df["Endereço"].apply(extrair_setor)
+df["Setor"] = df["Título"].apply(extrair_setor)
 
 # Convertendo as colunas "Preço" e "Área" para numéricos
 df["Preço"] = pd.to_numeric(df["Preço"], errors="coerce")

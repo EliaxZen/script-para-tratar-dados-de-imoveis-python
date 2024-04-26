@@ -7,7 +7,7 @@ import pandas as pd
 from distrito_federal_setor import setores
 
 # Caminho para o arquivo Excel
-caminho_arquivo = r"D:\Estágio - TRIM\arquivos sujos\2022-9-29-17-35-48-1232903495172000-3.795 Apartamentos para alugar.xlsx"
+caminho_arquivo = r"D:\Estágio - TRIM\arquivos sujos\apto a venda 2q_11_09_OLX.xlsx"
 
 # Extrair o nome do arquivo sem a extensão
 nome_arquivo, extensao_arquivo = os.path.splitext(os.path.basename(caminho_arquivo))
@@ -116,18 +116,18 @@ def extrair_max_plantas(texto):
 # Extrair e contabilizar o número máximo de quartos
 df["Quartos"] = df["new-details-ul"].apply(extrair_max_quartos)
 df["Quartos"] = df["Quartos"].fillna(df["new-details-ul1"].apply(extrair_max_quartos))
-df["Quartos"] = df["Quartos"].fillna(df["new-details-ul2"].apply(extrair_max_quartos))
-df["Quartos"] = df["Quartos"].fillna(df["new-details-ul3"].apply(extrair_max_quartos))
-df["Quartos"] = df["Quartos"].fillna(df["new-details-ul4"].apply(extrair_max_quartos))
+# df["Quartos"] = df["Quartos"].fillna(df["new-details-ul2"].apply(extrair_max_quartos))
+# df["Quartos"] = df["Quartos"].fillna(df["new-details-ul3"].apply(extrair_max_quartos))
+# df["Quartos"] = df["Quartos"].fillna(df["new-details-ul4"].apply(extrair_max_quartos))
 df["Quartos"] = df["Quartos"].astype(float)
 df["Quartos"] = df["Quartos"].fillna(0)
 
 # Extrair e contabilizar o número máximo de suítes
 df["Suítes"] = df["new-details-ul"].apply(extrair_max_suites)
 df["Suítes"] = df["Suítes"].fillna(df["new-details-ul1"].apply(extrair_max_suites))
-df["Suítes"] = df["Suítes"].fillna(df["new-details-ul2"].apply(extrair_max_suites))
-df["Suítes"] = df["Suítes"].fillna(df["new-details-ul3"].apply(extrair_max_suites))
-df["Suítes"] = df["Suítes"].fillna(df["new-details-ul4"].apply(extrair_max_suites))
+# df["Suítes"] = df["Suítes"].fillna(df["new-details-ul2"].apply(extrair_max_suites))
+# df["Suítes"] = df["Suítes"].fillna(df["new-details-ul3"].apply(extrair_max_suites))
+# df["Suítes"] = df["Suítes"].fillna(df["new-details-ul4"].apply(extrair_max_suites))
 df["Suítes"] = df["Suítes"].astype(float)
 df["Suítes"] = df["Suítes"].fillna(0)
 
@@ -136,33 +136,33 @@ df["Banheiros"] = df["new-details-ul"].apply(extrair_max_banheiros)
 df["Banheiros"] = df["Banheiros"].fillna(
     df["new-details-ul1"].apply(extrair_max_banheiros)
 )
-df["Banheiros"] = df["Banheiros"].fillna(
-    df["new-details-ul2"].apply(extrair_max_banheiros)
-)
-df["Banheiros"] = df["Banheiros"].fillna(
-    df["new-details-ul3"].apply(extrair_max_banheiros)
-)
-df["Banheiros"] = df["Banheiros"].fillna(
-    df["new-details-ul4"].apply(extrair_max_banheiros)
-)
+# df["Banheiros"] = df["Banheiros"].fillna(
+#     df["new-details-ul2"].apply(extrair_max_banheiros)
+# )
+# df["Banheiros"] = df["Banheiros"].fillna(
+#     df["new-details-ul3"].apply(extrair_max_banheiros)
+# )
+# df["Banheiros"] = df["Banheiros"].fillna(
+#     df["new-details-ul4"].apply(extrair_max_banheiros)
+# )
 df["Banheiros"] = df["Banheiros"].astype(float)
 df["Banheiros"] = df["Banheiros"].fillna(0)
 
 # Extrair e contabilizar o número máximo de vagas de estacionamento
 df["Vagas"] = df["new-details-ul"].apply(extrair_max_vagas)
 df["Vagas"] = df["Vagas"].fillna(df["new-details-ul1"].apply(extrair_max_vagas))
-df["Vagas"] = df["Vagas"].fillna(df["new-details-ul2"].apply(extrair_max_vagas))
-df["Vagas"] = df["Vagas"].fillna(df["new-details-ul3"].apply(extrair_max_vagas))
-df["Vagas"] = df["Vagas"].fillna(df["new-details-ul4"].apply(extrair_max_vagas))
+# df["Vagas"] = df["Vagas"].fillna(df["new-details-ul2"].apply(extrair_max_vagas))
+# df["Vagas"] = df["Vagas"].fillna(df["new-details-ul3"].apply(extrair_max_vagas))
+# df["Vagas"] = df["Vagas"].fillna(df["new-details-ul4"].apply(extrair_max_vagas))
 df["Vagas"] = df["Vagas"].astype(float)
 df["Vagas"] = df["Vagas"].fillna(0)
 
 # Extrair e contabilizar o número máximo de plantas
 df["Plantas"] = df["new-details-ul"].apply(extrair_max_plantas)
 df["Plantas"] = df["Plantas"].fillna(df["new-details-ul1"].apply(extrair_max_plantas))
-df["Plantas"] = df["Plantas"].fillna(df["new-details-ul2"].apply(extrair_max_plantas))
-df["Plantas"] = df["Plantas"].fillna(df["new-details-ul3"].apply(extrair_max_plantas))
-df["Plantas"] = df["Plantas"].fillna(df["new-details-ul4"].apply(extrair_max_plantas))
+# df["Plantas"] = df["Plantas"].fillna(df["new-details-ul2"].apply(extrair_max_plantas))
+# df["Plantas"] = df["Plantas"].fillna(df["new-details-ul3"].apply(extrair_max_plantas))
+# df["Plantas"] = df["Plantas"].fillna(df["new-details-ul4"].apply(extrair_max_plantas))
 df["Plantas"] = df["Plantas"].astype(float)
 df["Plantas"] = df["Plantas"].fillna(0)
 
