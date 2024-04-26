@@ -38,6 +38,15 @@ if not preco_zero.empty:
     df.drop(preco_zero.index, inplace=True)
     print("Imóveis com 'Preço' igual a zero removidos com sucesso.")
 
+# Verificar se há imóveis com "Preço" igual a "Sob Consulta" e removê-los
+sob_consulta = df[df["Preço"].str.lower() == "sob consulta"]
+if not sob_consulta.empty:
+    print("Imóveis com 'Preço' igual a 'Sob Consulta' encontrados. Removendo...")
+    df.drop(sob_consulta.index, inplace=True)
+    print("Imóveis com 'Preço' igual a 'Sob Consulta' removidos com sucesso.")
+
+# Remover caracteres não numéricos da coluna "Preço" e converter para numérico
+df["Preço"] = df["Preço"].str.replace(r"[^\d]", "", regex=True)
 
 # Função para extrair o setor da string de título
 def extrair_setor(titulo):

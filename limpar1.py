@@ -3,9 +3,7 @@ import pandas as pd
 from distrito_federal_setor import setores
 
 # Caminho para o arquivo Excel
-caminho_arquivo = (
-    r"D:\Estágio - TRIM\arquivos sujos\Imóveis comerciais_Bsb_ago22_Parte1.xlsx"
-)
+caminho_arquivo = r"D:\Estágio - TRIM\arquivos sujos\Imoveis a Venda_DF_Nov22.xlsx"
 
 # Extrair o nome do arquivo sem a extensão
 nome_arquivo, extensao_arquivo = os.path.splitext(os.path.basename(caminho_arquivo))
@@ -14,31 +12,27 @@ nome_arquivo, extensao_arquivo = os.path.splitext(os.path.basename(caminho_arqui
 df = pd.read_excel(caminho_arquivo)
 
 # Verificar e remover imóveis duplicados com base no conteúdo do link
-duplicados = df[df.duplicated(subset=["Link"])]
+df.drop_duplicates(subset=["Link"], inplace=True)
 
-# Se houver imóveis duplicados, remova-os
-if not duplicados.empty:
-    print("Imóveis duplicados encontrados. Removendo...")
-    df.drop_duplicates(subset=["Link"], inplace=True)
-    print("Imóveis duplicados removidos com sucesso.")
+# Verificar se há imóveis com "Preço" igual a zero ou nulo
+preco_zero_null = df["Preço"].isnull() | (df["Preço"] == 0)
 
-# Verificar se há imóveis com "Área" igual a zero
-area_zero = df[df["Área"] == 0 | (df["Área"].isnull())]
+# Remover imóveis com "Preço" igual a zero ou nulo
+df = df[~preco_zero_null]
 
-# Se houver imóveis com "Área" igual a zero, exclua-os
-if not area_zero.empty:
-    print("Imóveis com 'Área' igual a zero encontrados. Removendo...")
-    df.drop(area_zero.index, inplace=True)
-    print("Imóveis com 'Área' igual a zero removidos com sucesso.")
+# Verificar se há imóveis com "Área" igual a zero ou nula
+area_zero_null = df["Área"].isnull() | (df["Área"] == 0)
 
-# Verificar se há imóveis com "Preço" igual a zero
-preco_zero = df[df["Preço"] == 0 | (df["Preço"].isnull())]
+# Remover imóveis com "Área" igual a zero ou nula
+df = df[~area_zero_null]
 
-# Se houver imóveis com "Preço" igual a zero, exclua-os
-if not preco_zero.empty:
-    print("Imóveis com 'Preço' igual a zero encontrados. Removendo...")
-    df.drop(preco_zero.index, inplace=True)
-    print("Imóveis com 'Preço' igual a zero removidos com sucesso.")
+# Remover imóveis com "Preço" igual a "Sob Consulta"
+df = df[~(df["Preço"].str.lower() == "sob consulta")]
+
+# Remover caracteres não numéricos da coluna "Preço" e converter para numérico
+df["Preço"] = pd.to_numeric(
+    df["Preço"].apply(lambda x: "".join(filter(str.isdigit, str(x)))), errors="coerce"
+)
 
 
 # Função para extrair o setor da string de título
@@ -52,13 +46,15 @@ def extrair_setor(titulo):
     return "OUTRO"  # Retorna "OUTRO" se o valor não for uma string
 
 
-df["Setor"] = df["Endereço"].apply(extrair_setor)
+df["Setor"] = df["Título"].apply(extrair_setor)
 
-# Convertendo as colunas "Preço" e "Área" para numéricos
-df["Preço"] = pd.to_numeric(df["Preço"], errors="coerce")
+# Convertendo as colunas "Área" e "Preço" para numéricos
 df["Área"] = pd.to_numeric(df["Área"], errors="coerce")
 
-# Remover linhas onde "Preço" ou "Área" é NaN após a conversão
+# Remover linhas onde "Área" é NaN após a conversão
+df = df.dropna(subset=["Área"])
+
+# Verificar se há valores vazios nas colunas "Preço" e "Área" e excluir as linhas correspondentes
 df = df.dropna(subset=["Preço", "Área"])
 
 # Criando uma nova coluna 'M2' que é o resultado da divisão da coluna 'Preço' pela coluna 'Área'
@@ -70,7 +66,7 @@ caminho_arquivo_modificado = os.path.join(
 )
 df.to_excel(caminho_arquivo_modificado, index=False)
 
-print("Arquivo salvo com sucesso em:", caminho_arquivo_modificado)
+print("\nArquivo salvo com sucesso em:", caminho_arquivo_modificado)
 
 # Exibindo as primeiras linhas do DataFrame com as novas colunas de amenidades
 print(df.head())
