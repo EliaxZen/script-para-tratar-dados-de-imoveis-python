@@ -7,7 +7,7 @@ import pandas as pd
 from distrito_federal_setor import setores
 
 # Caminho para o arquivo Excel
-caminho_arquivo = r"D:\Estágio - TRIM\arquivos sujos\Aluguel\Brasilia_ Imóveis para alugar_out2022_r02.xlsx"
+caminho_arquivo = r"D:\Estágio - TRIM\arquivos sujos\Part3_2023-4-22-14-26-42-256007944721599-15.284 Imóveis à venda em Bras-ScrapingData-ScrapeStorm.xlsx"
 
 # Extrair o nome do arquivo sem a extensão
 nome_arquivo, extensao_arquivo = os.path.splitext(os.path.basename(caminho_arquivo))
@@ -15,17 +15,10 @@ nome_arquivo, extensao_arquivo = os.path.splitext(os.path.basename(caminho_arqui
 # Carregando o arquivo Excel em um DataFrame
 df = pd.read_excel(caminho_arquivo)
 
-# Verificar se há imóveis com "Preço" igual a zero ou nulo
-preco_zero_null = df["Preço"].isnull() | (df["Preço"] == 0)
 
-# Remover imóveis com "Preço" igual a zero ou nulo
-df = df[~preco_zero_null]
+# Remove o "m²" da coluna "Área" e converte para numérico
+# df["Área"] = pd.to_numeric(df["Área"].str.replace(" m²", ""), errors="coerce")
 
-# Verificar se há imóveis com "Área" igual a zero ou nula
-area_zero_null = df["Área"].isnull() | (df["Área"] == 0)
-
-# Remover imóveis com "Área" igual a zero ou nula
-df = df[~area_zero_null]
 
 # Verificar se há imóveis com "Preço" igual a "Sob Consulta"
 if (
@@ -189,6 +182,18 @@ df = df.dropna(subset=["Área"])
 
 # Verificar se há valores vazios nas colunas "Preço" e "Área" e excluir as linhas correspondentes
 df = df.dropna(subset=["Preço", "Área"])
+
+# Verificar se há imóveis com "Preço" igual a zero ou nulo
+preco_zero_null = df["Preço"].isnull() | (df["Preço"] == 0)
+
+# Remover imóveis com "Preço" igual a zero ou nulo
+df = df[~preco_zero_null]
+
+# Verificar se há imóveis com "Área" igual a zero ou nula
+area_zero_null = df["Área"].isnull() | (df["Área"] == 0)
+
+# Remover imóveis com "Área" igual a zero ou nula
+df = df[~area_zero_null]
 
 # Criando uma nova coluna 'M2' que é o resultado da divisão da coluna 'Preço' pela coluna 'Área'
 df["M2"] = df["Preço"] / df["Área"]
