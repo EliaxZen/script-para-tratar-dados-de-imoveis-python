@@ -4,6 +4,11 @@ setores = [
         'SAMAMBAIA','SANTA MARIA','SÃO SEBASTIÃO','RECANTO DAS EMAS','LAGO SUL','RIACHO FUNDO','LAGO NORTE','CANDANGOLÂNDIA','ÁGUAS CLARAS',
         'RIACHO FUNDO II','SUDOESTE/OCTOGONAL','VARJÃO','PARK WAY','SCIA','VICENTE PIRES','FERCAL'
         'ADE', 'SRTVS', 'STN', 'SMT', 'SRB', 'SRTVN', 'SQ', 'SQB', 'SQNW', 'SMI', 'SMS', 'SMSE', 'SMDB', 'SMHN', 'SHVG',
+        "SGAN", "CLSW", "CRS", "SHIS", "CLN", "CLS", "SCN", "SRTVS", "SHLN", "SDS",
+        "SCRN", "SIG", "SDN", "SBN", "EQN", "COM.JARDIM BOTANICO", "SAUS", "SMHN",
+        "SHS", "SCS", "EQS", "TAQUARI", "CA LAGO NORTE", "SMAS", "SEPS", "SBS",
+        "SGCV", "SHN", "QMSW", "POLO VERDE", "OCTOGONAL", "SEPN", "VILA PLANALTO",
+        "CRNW", "SHCGN", "SIA", "SMDB", "STN", "QRSW",
         'SIN', 'SMAS', 'SIA', 'SHTS', 'SHTN', 'SHLN', 'SHLS', 'SDN', 'SGCV', 'SHIP', 'SDS', 'QRI', 'QRO', 'QS', 'AE', 'AC', 
         'QSA', 'QSB', 'SHVP', 'QSC', 'QSE', 'QSF', 'AV', 'AR', 'C', 'CNA', 'CNC', 'CND', 'CNF', 'CNG','CNM', 'CNN', 'CNR', 'CSA', 'CSC',
         'CSD', 'CSF' 'AeB', 'AEMN', 'AOS', 'APO', 'ARIE', 'AVPR', 'BOT', 'BSB', 'CA', 'CADF', 'CCSW', 'CEN', 'CES', 'CE-UnB', 'CL',
